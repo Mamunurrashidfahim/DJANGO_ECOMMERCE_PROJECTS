@@ -1,0 +1,68 @@
+{% extends 'navbar.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Orders {% endblock %}
+{% block css %}
+<style>
+.contact-image{
+    text-align: center;
+}
+.contact-image img{
+    border-radius: 6rem;
+    width: 11%;
+    margin-top: -3%;
+    transform: rotate(29deg);
+}
+.contact-form{
+    background: #fff;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 100%;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="contact-form">
+    <div class="contact-image">
+        <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+    </div>
+ <h2 class="text-center"><strong>Your Order</strong></h2>
+ <div class="row">
+     <div class="col-md-12">
+         <div class="card mt-5" style="height: auto;">
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Order ID</th>
+                          <th scope="col">Products</th>
+                          <th scope="col">Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>  
+                      {% for order in orders %}
+                      <tr> 
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="#">{{order.orderId}}</a></td>
+                        <td>
+                            {% for item in order.orderitems.all %}
+                             {{ item }}  
+                             <br> 
+                            {% endfor %}  
+                        </td>
+                        <td><span class="badge badge-primary" style="height: 25px; width: 150px; font-size: 12px;">{{ order.status }}</span></td>
+                        </tr>   
+                      {% endfor %} 
+                  </tbody>
+              </table>
+          </div> 
+        </div>
+         </div>
+         <div class="col-md-12 text-center mt-2">
+             <a href="{% url 'App_Shop:home' %}" class="btn btn-primary ">Back To Home</a>
+         </div>
+     </div>
+ </div>
+
+{% endblock %}
+    
